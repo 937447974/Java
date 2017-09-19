@@ -1,4 +1,4 @@
-package com.yjcocoa.aspectj;
+package com.yjcocoa.core.aspectj;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;

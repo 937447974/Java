@@ -1,8 +1,8 @@
-package com.yjcocoa.test;
+package com.yjcocoa.core.test;
 
-import com.yjcocoa.mapper.CustomerMapper;
-import com.yjcocoa.po.Customer;
-import com.yjcocoa.service.CustomerService;
+import com.yjcocoa.core.mapper.CustomerMapper;
+import com.yjcocoa.core.po.Customer;
+import com.yjcocoa.core.service.CustomerService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

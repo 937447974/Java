@@ -1,15 +1,11 @@
-package com.yjcocoa.test;
+package com.yjcocoa.core.test;
 
-import com.yjcocoa.mapper.CustomerMapper;
-import com.yjcocoa.po.Customer;
-import com.yjcocoa.service.CustomerService;
+import com.yjcocoa.core.po.Customer;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.InputStream;
 

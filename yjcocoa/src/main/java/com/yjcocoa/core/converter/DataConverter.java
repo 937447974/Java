@@ -1,4 +1,4 @@
-package com.yjcocoa.converter;
+package com.yjcocoa.core.converter;
 
 import org.springframework.core.convert.converter.Converter;
 

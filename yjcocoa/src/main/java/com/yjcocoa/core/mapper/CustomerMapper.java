@@ -1,6 +1,6 @@
-package com.yjcocoa.mapper;
+package com.yjcocoa.core.mapper;
 
-import com.yjcocoa.po.Customer;
+import com.yjcocoa.core.po.Customer;
 
 /**
  * CustomerMapper.java

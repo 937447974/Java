@@ -1,4 +1,4 @@
-package com.yjcocoa.controller;
+package com.yjcocoa.core.controller;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

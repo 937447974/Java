@@ -20,7 +20,7 @@
     <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
         <property name="converters">
             <set>
-                <bean class="com.yjcocoa.converter.DataConverter"/>
+                <bean class="com.yjcocoa.core.converter.DataConverter"/>
             </set>
         </property>
     </bean>

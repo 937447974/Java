@@ -1,4 +1,4 @@
-package com.yjcocoa.po;
+package com.yjcocoa.core.po;
 
 /**
  * Customer.java

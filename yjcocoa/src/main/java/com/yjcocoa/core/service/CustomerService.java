@@ -1,6 +1,6 @@
-package com.yjcocoa.service;
+package com.yjcocoa.core.service;
 
-import com.yjcocoa.po.Customer;
+import com.yjcocoa.core.po.Customer;
 
 /**
  * CustomerService.java
