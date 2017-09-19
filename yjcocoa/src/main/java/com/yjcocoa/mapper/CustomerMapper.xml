@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http:/mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjcocoa.mapper.CustomerMapper">
+    <select id="findCustomerById" parameterType="Integer" resultType="Customer">
+        select * from t_customer where id = #{id}
+    </select>
+
+    <select id="findCustomerById1" parameterType="Integer" resultMap="CustomerResult">
+        select * from t_customer where id = #{id}
+    </select>
+    <resultMap id="CustomerResult" type="Customer">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+    </resultMap>
+
+    <insert id="addCustomer" parameterType="customer">
+        INSERT  INTO t_customer (username, jobs, phone)
+        VALUES (#{username}, #{jobs}, #{phone})
+    </insert>
+
+</mapper>
