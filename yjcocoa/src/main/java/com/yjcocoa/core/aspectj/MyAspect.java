@@ -21,7 +21,7 @@ public class MyAspect {
 
     @Before("myPointCut()")
     public void myBefore(JoinPoint jointPoint) {
-        System.out.print("前置通知");
+        System.out.println("前置通知");
     }
 
 }
