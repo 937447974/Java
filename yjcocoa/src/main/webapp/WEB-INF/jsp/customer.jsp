@@ -32,7 +32,7 @@
     <nav class="navbar navbar-default navbar-static-top" role="navigation"
          style="margin-bottom: 0">
         <div class="navbar-header">
-            <a class="navbar-brand" href="<%=basePath%>customer/list.action">BOOT客户管理系统 v2.0</a>
+            <a class="navbar-brand" href="<%=basePath%>customer/list">BOOT客户管理系统 v2.0</a>
         </div>
         <!-- 导航栏右侧图标部分 -->
         <ul class="nav navbar-top-links navbar-right">
@@ -175,13 +175,13 @@
                 </a>
                 <ul class="dropdown-menu dropdown-user">
                     <li><a href="#"><i class="fa fa-user fa-fw"></i>
-                        用户：${USER_SESSION.user_name}
+                        用户：${USER_SESSION.name}
                     </a>
                     </li>
                     <li><a href="#"><i class="fa fa-gear fa-fw"></i> 系统设置</a></li>
                     <li class="divider"></li>
                     <li>
-                        <a href="${pageContext.request.contextPath }/logout.action">
+                        <a href="${pageContext.request.contextPath }/logout">
                             <i class="fa fa-sign-out fa-fw"></i>退出登录
                         </a>
                     </li>
@@ -204,7 +204,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath }/customer/list.action" class="active">
+                        <a href="${pageContext.request.contextPath }/customer/list" class="active">
                             <i class="fa fa-edit fa-fw"></i> 客户管理
                         </a>
                     </li>
@@ -230,7 +230,7 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <form class="form-inline" method="get"
-                      action="${pageContext.request.contextPath }/customer/list.action">
+                      action="${pageContext.request.contextPath }/customer/list">
                     <div class="form-group">
                         <label for="customerName">客户名称</label>
                         <input type="text" class="form-control" id="customerName"
@@ -316,7 +316,7 @@
                         </tbody>
                     </table>
                     <div class="col-md-12 text-right">
-                        <itheima:page url="${pageContext.request.contextPath }/customer/list.action"/>
+                        <itheima:page url="${pageContext.request.contextPath }/customer/list"/>
                     </div>
                     <!-- /.panel-body -->
                 </div>
@@ -563,7 +563,7 @@
 
     // 创建客户
     function createCustomer() {
-        $.post("<%=basePath%>customer/create.action",
+        $.post("<%=basePath%>customer/create",
             $("#new_customer_form").serialize(), function (data) {
                 if (data == "OK") {
                     alert("客户创建成功！");
@@ -579,7 +579,7 @@
     function editCustomer(id) {
         $.ajax({
             type: "get",
-            url: "<%=basePath%>customer/getCustomerById.action",
+            url: "<%=basePath%>customer/getCustomerById",
             data: {"id": id},
             success: function (data) {
                 $("#edit_id").val(data.id);
@@ -599,7 +599,7 @@
 
     // 执行修改客户操作
     function updateCustomer() {
-        $.post("<%=basePath%>customer/update.action", $("#edit_customer_form").serialize(), function (data) {
+        $.post("<%=basePath%>customer/update", $("#edit_customer_form").serialize(), function (data) {
             if (data == "OK") {
                 alert("客户信息更新成功！");
                 window.location.reload();
@@ -613,7 +613,7 @@
     // 删除客户
     function deleteCustomer(id) {
         if (confirm('确实要删除该客户吗?')) {
-            $.post("<%=basePath%>customer/delete.action", {"id": id},
+            $.post("<%=basePath%>customer/delete", {"id": id},
                 function (data) {
                     if (data == "OK") {
                         alert("客户删除成功！");
