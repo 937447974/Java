@@ -1,14 +1,16 @@
 #建立库
+DROP DATABASE yjcocoa;
 CREATE DATABASE yjcocoa;
 USE yjcocoa;
 
 #建表
 CREATE TABLE sys_user (
   id       INT(32) PRIMARY KEY AUTO_INCREMENT,
-  code     VARCHAR(32),
-  name     VARCHAR(50),
-  password VARCHAR(32),
-  state    VARCHAR(1)
+  code     VARCHAR(32) NOT NULL,
+  name     VARCHAR(50) NOT NULL,
+  password VARCHAR(32) NOT NULL,
+  state    VARCHAR(1)  NOT NULL,
+  CONSTRAINT uk_code UNIQUE (code)
 );
 CREATE TABLE customer (
   id         INT(32) PRIMARY KEY AUTO_INCREMENT,
@@ -35,3 +37,7 @@ CREATE TABLE base_dict (
   enable    CHAR(1),
   memo      VARCHAR(100)
 );
+
+#导入初始数据
+INSERT INTO sys_user (code, name, password, state)
+  VALUE ("admin", "阳君", "admin", "1");
