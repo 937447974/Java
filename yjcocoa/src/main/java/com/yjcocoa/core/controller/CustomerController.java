@@ -44,12 +44,11 @@ public class CustomerController {
      * 客户列表
      */
     @RequestMapping(value = "/list")
-    public String list(@RequestParam(defaultValue = "1") Integer page,
-                       @RequestParam(defaultValue = "10") Integer rows,
-                       String custName, String custSource, String custIndustry,
-                       String custLevel, Model model) {
+    public String list(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer
+            rows, String custName, String custSource, String custIndustry, String custLevel, Model model) {
         // 条件查询所有客户
-        Page<Customer> customers = this.customerService.findCustomerList(page, rows, custName, custSource, custIndustry, custLevel);
+        Page<Customer> customers = this.customerService.findCustomerList(page, rows, custName, custSource,
+                custIndustry, custLevel);
         model.addAttribute("page", customers);
         // 客户来源
         List<BaseDict> fromType = this.baseDictService.findBaseDictByTypeCode(FROM_TYPE);
