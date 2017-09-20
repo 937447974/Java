@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyAspect {
 
-    @Pointcut("execution(* com.yjcocoa.dao.*.*(..))")
+    @Pointcut("execution(* com.yjcocoa.core.dao.*.*(..))")
     private void myPointCut() {}
 
     @Before("myPointCut()")

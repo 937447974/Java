@@ -24,15 +24,15 @@ public class SpringMyBatisTest {
         System.out.println(customer.toString());
     }
 
-    @Test
-    public void transactionalTest() {
-        String xmlPath = "applicationContext.xml";
-        ApplicationContext act = new ClassPathXmlApplicationContext(xmlPath);
-        CustomerService customerService = act.getBean(CustomerService.class);
-        Customer customer = new Customer();
-        customer.setJobs("2");
-        customer.setPhone("937lafj");
-        customer.setUsername("YJ1");
-        customerService.addCustomer(customer);
-    }
+//    @Test
+//    public void transactionalTest() {
+//        String xmlPath = "applicationContext.xml";
+//        ApplicationContext act = new ClassPathXmlApplicationContext(xmlPath);
+//        CustomerService customerService = act.getBean(CustomerService.class);
+//        Customer customer = new Customer();
+//        customer.setJobs("2");
+//        customer.setPhone("937lafj");
+//        customer.setUsername("YJ1");
+//        customerService.addCustomer(customer);
+//    }
 }
