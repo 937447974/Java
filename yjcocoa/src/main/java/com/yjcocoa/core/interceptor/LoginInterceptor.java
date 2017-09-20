@@ -20,7 +20,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         // 获取请求的URL
         String url = request.getRequestURI();
         // URL:除了登录请求外，其他的URL都进行拦截控制
-        if (url.indexOf("/login.action") >= 0) {
+        if (url.indexOf("/login") >= 0) {
             return true;
         }
         // 获取Session
