@@ -5,42 +5,25 @@
     <!--SQL片段  -->
     <sql id="selectCustomerListWhere">
         <where>
-            <if test="name != null">
+            <if test="name != null and name != ''">
                 name like "%"#{name}"%"
             </if>
-            <if test="source != null">
+            <if test="source != null and source != ''">
                 and source = #{source}
             </if>
-            <if test="industry != null">
+            <if test="industry != null and industry != ''">
                 and industry = #{industry}
             </if>
-            <if test="level != null">
+            <if test="level != null and level != ''">
                 and level = #{level}
             </if>
         </where>
     </sql>
     <!-- 查询客户列表  -->
     <select id="selectCustomerList" parameterType="customer" resultType="customer">
-        SELECT id, name, user_id, create_id, linkman, phone, mobile, createtime,
-        b.item_name source,
-        c.item_name industry,
-        d.item_name level
-        FROM customer a
-        LEFT JOIN (
-        SELECT id, item_name
-        FROM base_dict
-        WHERE type_code = '002'
-        ) b ON a.source = b.id
-        LEFT JOIN (
-        SELECT id, item_name
-        FROM base_dict
-        WHERE type_code = '001'
-        ) c ON a.industry = c.id
-        LEFT JOIN (
-        SELECT id, item_name
-        FROM base_dict
-        WHERE type_code = '006'
-        ) d ON a.level = d.id
+        SELECT id, name, user_id, create_id, source, industry,
+        level, linkman, phone, mobile, zipcode, createtime
+        FROM customer
         <include refid="selectCustomerListWhere"/>
         <!-- 执行分页查询 -->
         <if test="start !=null and rows != null">

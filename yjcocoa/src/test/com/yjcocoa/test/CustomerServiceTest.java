@@ -26,7 +26,7 @@ public class CustomerServiceTest {
 
     @Test
     public void findCustomerListTesl() {
-        Page<Customer> page = this.customerService().findCustomerList(1,1,"Y",null,null,null);
+        Page<Customer> page = this.customerService().findCustomerList(1,10,"Y",null,null,null);
         System.out.println(page.getRows());
     }
 
@@ -38,15 +38,15 @@ public class CustomerServiceTest {
         this.customerService().createCustomer(customer);
     }
 
+    @Test
+    public void getCustomerByIdTest() {
+        Customer customer = this.customerService().getCustomerById(1);
+        System.out.println(customer);
+    }
 
+    @Test
+    public void deleteCustomerTest() {
+        this.customerService().deleteCustomer(1);
+    }
 
-//
-//    // 通过id查询客户
-//    public Customer getCustomerById(Integer id);
-//
-//    // 更新客户
-//    public int updateCustomer(Customer customer);
-//
-//    // 删除客户
-//    public int deleteCustomer(Integer id);
 }
