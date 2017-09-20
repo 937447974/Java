@@ -81,4 +81,17 @@ public class BaseDict implements Serializable {
         this.memo = memo;
     }
 
+    @Override
+    public String toString() {
+        return "BaseDict{" +
+                "id=" + id +
+                ", type_code='" + type_code + '\'' +
+                ", type_name='" + type_name + '\'' +
+                ", item_name='" + item_name + '\'' +
+                ", item_code='" + item_code + '\'' +
+                ", sort=" + sort +
+                ", enable='" + enable + '\'' +
+                ", memo='" + memo + '\'' +
+                '}';
+    }
 }

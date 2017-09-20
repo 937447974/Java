@@ -145,4 +145,25 @@ public class Customer implements Serializable {
         this.rows = rows;
     }
 
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", user_id=" + user_id +
+                ", create_id=" + create_id +
+                ", source='" + source + '\'' +
+                ", industry='" + industry + '\'' +
+                ", level='" + level + '\'' +
+                ", linkman='" + linkman + '\'' +
+                ", phone='" + phone + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", zipcode='" + zipcode + '\'' +
+                ", address='" + address + '\'' +
+                ", createtime=" + createtime +
+                ", start=" + start +
+                ", rows=" + rows +
+                '}';
+    }
+
 }

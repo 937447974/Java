@@ -54,4 +54,14 @@ public class User implements Serializable {
         this.state = state;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", state=" + state +
+                '}';
+    }
 }
