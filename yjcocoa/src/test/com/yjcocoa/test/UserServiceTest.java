@@ -23,6 +23,7 @@ public class UserServiceTest {
     @Test
     public void findUserTest() {
         User user = this.userService().findUser("admin","admin");
+        System.out.println(user);
     }
 
 }
