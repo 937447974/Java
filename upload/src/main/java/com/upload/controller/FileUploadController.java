@@ -1,4 +1,4 @@
-package com.uploda.controller;
+package com.upload.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,9 +21,7 @@ public class FileUploadController {
     @RequestMapping(value = "/fileUpload")
     public String handleFormUpload(@RequestParam("uploadfile") List<MultipartFile> uploadfile, HttpServletRequest request) {
         // http://www.plupload.com
-        // 判断所上传文件是否存在
-        if (!uploadfile.isEmpty() && uploadfile.size() > 0) {
-            //循环输出上传的文件
+        if (!uploadfile.isEmpty()) {
             for (MultipartFile file : uploadfile) {
                 // 获取上传文件的原始名称
                 String originalFilename = file.getOriginalFilename();
@@ -44,7 +42,6 @@ public class FileUploadController {
                     return "error";
                 }
             }
-            // 跳转到成功页面
             return "success";
         } else {
             return "error";
