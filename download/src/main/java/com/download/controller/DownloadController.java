@@ -48,50 +48,36 @@ public class DownloadController {
     @RequestMapping("/download1")
     public ResponseEntity<String> downFile(HttpServletResponse response, HttpServletRequest request, String fileName)
             throws Exception {
+        String path = request.getServletContext().getRealPath("/upload/");
         InputStream inputStream = null;
         ServletOutputStream out = null;
-        try {
-            String path = request.getServletContext().getRealPath("/upload/");
-            // 创建该文件对象
-            File file = new File(path + File.separator + fileName);
-            long fSize = file.length();
-            response.setCharacterEncoding("utf-8");
-            response.setContentType("application/x-download");
-            response.setHeader("Accept-Ranges", "bytes");
-            response.setHeader("Content-Length", String.valueOf(fSize));
-            response.setHeader("Content-Disposition", "attachment;fileName=" + this.getFilename(request, fileName));
-            inputStream = new FileInputStream(file);
-            long pos = 0;
-            if (null != request.getHeader("Range")) {
-                // 断点续传
-                response.setStatus(HttpServletResponse.SC_PARTIAL_CONTENT);
-                try {
-                    pos = Long.parseLong(request.getHeader("Range").replaceAll("bytes=", "").replaceAll("-", ""));
-                } catch (NumberFormatException e) {
-                    pos = 0;
-                }
+        // 创建该文件对象
+        File file = new File(path + File.separator + fileName);
+        long fSize = file.length();
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("application/x-download");
+        response.setHeader("Accept-Ranges", "bytes");
+        response.setHeader("Content-Length", String.valueOf(fSize));
+        response.setHeader("Content-Disposition", "attachment;fileName=" + this.getFilename(request, fileName));
+        long pos = 0;
+        if (null != request.getHeader("Range")) {
+            // 断点续传
+            response.setStatus(HttpServletResponse.SC_PARTIAL_CONTENT);
+            try {
+                pos = Long.parseLong(request.getHeader("Range").replaceAll("bytes=", "").replaceAll("-", ""));
+            } catch (NumberFormatException e) {
+                pos = 0;
             }
+        }
+        String contentRange = new StringBuffer("bytes ").append(pos + "").append("-").append((fSize - 1) + "")
+                .append("/").append(fSize + "").toString();
+        response.setHeader("Content-Range", contentRange);
+        try {
+            inputStream = new FileInputStream(file);
             out = response.getOutputStream();
-            String contentRange = new StringBuffer("bytes ").append(pos + "").append("-").append((fSize - 1) + "")
-                    .append("/").append(fSize + "").toString();
-            response.setHeader("Content-Range", contentRange);
             inputStream.skip(pos);
             byte[] buffer = new byte[1024 * 100];
             int length = 0;
-
-
-            System.out.println(request.getHeaderNames());
-            Enumeration<String> headerNames = request.getHeaderNames();
-            while(headerNames.hasMoreElements()){
-                String value = (String)headerNames.nextElement();//调用nextElement方法获得元素
-                System.out.println(value+"  "+request.getHeader(value));
-            }
-            System.out.println(response.getHeaderNames());
-            Collection<String> headerNames1 = response.getHeaderNames();
-            for (String value : headerNames1) {
-                System.out.println(value+"  "+response.getHeader(value));
-            }
-            //-------
             while ((length = inputStream.read(buffer, 0, buffer.length)) != -1) {
                 out.write(buffer, 0, length);
                 Thread.sleep(100);
