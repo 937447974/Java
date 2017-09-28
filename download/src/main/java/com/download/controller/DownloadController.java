@@ -15,8 +15,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URLEncoder;
-import java.util.Collection;
-import java.util.Enumeration;
 
 /**
  * DownloadController.java
@@ -49,8 +47,6 @@ public class DownloadController {
     public ResponseEntity<String> downFile(HttpServletResponse response, HttpServletRequest request, String fileName)
             throws Exception {
         String path = request.getServletContext().getRealPath("/upload/");
-        InputStream inputStream = null;
-        ServletOutputStream out = null;
         // 创建该文件对象
         File file = new File(path + File.separator + fileName);
         long fSize = file.length();
@@ -69,21 +65,20 @@ public class DownloadController {
                 pos = 0;
             }
         }
-        String contentRange = new StringBuffer("bytes ").append(pos + "").append("-").append((fSize - 1) + "")
-                .append("/").append(fSize + "").toString();
+        String contentRange = "bytes " + pos + "-" + (fSize - 1) + "/" + fSize;
         response.setHeader("Content-Range", contentRange);
+        InputStream inputStream = null;
+        ServletOutputStream out = null;
         try {
             inputStream = new FileInputStream(file);
-            out = response.getOutputStream();
             inputStream.skip(pos);
+            out = response.getOutputStream();
             byte[] buffer = new byte[1024 * 100];
             int length = 0;
             while ((length = inputStream.read(buffer, 0, buffer.length)) != -1) {
                 out.write(buffer, 0, length);
                 Thread.sleep(100);
             }
-        } catch (Exception e) {
-            throw e;
         } finally {
             if (null != out) out.flush();
             if (null != out) out.close();
