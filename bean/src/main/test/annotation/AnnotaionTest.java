@@ -1,6 +1,5 @@
 package annotation;
 
-import com.bean.annotation.AnnotationT;
 import org.junit.Test;
 
 import java.lang.annotation.Annotation;
@@ -16,6 +15,12 @@ import java.lang.reflect.Modifier;
  * Copyright © 2017年 bean. All rights reserved.
  */
 public class AnnotaionTest {
+
+    @Test
+    public void test() throws Exception {
+        this.getBean(UserAnnotation.class);
+
+    }
 
     public <T> T getBean(Class<T> requiredType) throws Exception {
         // 类注解
@@ -55,9 +60,4 @@ public class AnnotaionTest {
         return null;
     }
 
-    @Test
-    public void test() throws Exception {
-        this.getBean(UserAnnotation.class);
-
-    }
 }
