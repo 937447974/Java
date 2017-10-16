@@ -7,9 +7,13 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- 配置扫描器 -->
-    <context:component-scan base-package="com.bean"/>
+    <context:component-scan base-package="com.lifecycle"/>
 
-    <alias name="BeanServiceImpl3" alias="com.bean.BeanServiceImpl3"/>
+    <bean id="beanPostProcessor" class="com.lifecycle.BeanPostProcessorImpl"/>
+
+    <bean id="studentBean" class="com.lifecycle.StudentBean" init-method="xmlInit" destroy-method="xmlDestroy"
+          scope="singleton">
+        <property name="name" value="阳君"></property>
+    </bean>
 
 </beans>
