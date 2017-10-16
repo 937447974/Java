@@ -29,6 +29,9 @@
                         alert("您输入的用户名为：" + data.username +
                             "密码为：" + data.password);
                     }
+                },
+                error: function (data) {
+                    alert(data);
                 }
             });
         }
