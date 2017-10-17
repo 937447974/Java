@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.annotation.RequestScope;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -22,6 +23,7 @@ import javax.validation.Valid;
  * Copyright © 2017年 springmvc. All rights reserved.
  */
 @Controller
+@RequestScope
 @RequestMapping("/validator")
 public class ValidatorController {
 

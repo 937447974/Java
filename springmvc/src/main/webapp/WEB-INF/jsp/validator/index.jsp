@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>登录</title>
+    <title>hibernate-validator 数据校验</title>
 </head>
 <body>
 <form action="${pageContext.request.contextPath }/validator/login2"
