@@ -6,7 +6,7 @@
     <title>登录</title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath }/validator/login"
+<form action="${pageContext.request.contextPath }/validator/login2"
       method="post">
     用户名：<input type="text" name="username" value=${user.username}> <span>${usernameValid}</span><br/>
     密&nbsp;&nbsp;&nbsp;码：<input type="text" name="password" value=${user.password}><span>${passwordValid}</span><br/>
