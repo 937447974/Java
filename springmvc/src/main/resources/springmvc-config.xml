@@ -25,10 +25,21 @@
     <mvc:resources location="/js/" mapping="/js/**"/>
 
     <!-- 配置校验器 -->
+    <!--国际化校验资源-->
+    <bean id="hibernateValidationMessages" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="basenames">
+            <list>
+                <!--多模块自定义校验文档-->
+                <value>ValidationMessages</value>
+            </list>
+        </property>
+    </bean>
     <!--属性校验-->
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
         <!-- 校验器，使用hibernate校验器 -->
         <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        <property name="validationMessageSource" ref="hibernateValidationMessages"/>
     </bean>
     <!--方法校验-->
     <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor">

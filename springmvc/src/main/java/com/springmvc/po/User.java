@@ -8,11 +8,11 @@ import javax.validation.constraints.Size;
  */
 public class User {
 
-    @NotEmpty(message = "用户名不能为空")
+    @NotEmpty(message = "{username.NotEmpty}")
     private String username;
 
-    @NotEmpty(message = "密码不能为空")
-    @Size(min = 6, max = 9, message = "密码长度应在{min}-{max}个字符")
+    @NotEmpty(message = "{password.NotEmpty}")
+    @Size(min = 6, max = 9, message = "{password.Size}")
     private String password;
 
     public String getUsername() {

@@ -17,8 +17,10 @@ import javax.validation.constraints.Size;
 @Service
 public class ValidatorService {
 
-    public String checkUser(@NotEmpty(message = "用户名不能为空") String username,
-                            @NotEmpty(message = "密码不能为空") @Size(min = 6, max = 9, message = "密码长度应在{min}-{max}个字符")
+    public String checkUser(@NotEmpty(message = "{username.NotEmpty}")
+                                    String username,
+                            @NotEmpty(message = "{password.NotEmpty}")
+                            @Size(min = 6, max = 9, message = "{password.Size}")
                                     String password) throws ConstraintViolationException {
         return "User [username=" + username + ", password=" + password + "]";
     }
