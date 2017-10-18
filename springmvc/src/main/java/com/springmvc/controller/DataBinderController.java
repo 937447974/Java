@@ -32,7 +32,7 @@ public class DataBinderController {
             }
         }
         model.addAttribute("msg", msg);
-        return "databinder/success";
+        return "success";
     }
 
 }

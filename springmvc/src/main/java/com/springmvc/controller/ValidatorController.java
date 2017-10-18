@@ -45,7 +45,7 @@ public class ValidatorController {
             return "validator/index";
         }
         model.addAttribute("msg", user.toString());
-        return "validator/success";
+        return "success";
     }
 
     @RequestMapping("/login2")
@@ -59,7 +59,7 @@ public class ValidatorController {
             }
             return "validator/index";
         }
-        return "validator/success";
+        return "success";
     }
 
 }
