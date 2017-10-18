@@ -30,10 +30,4 @@ public class ConversionController  {
         return "success";
     }
 
-    @RequestMapping("/customDate2")
-    public String customDate2(Model model, Date date) {
-        model.addAttribute("msg", date.toString());
-        return "success";
-    }
-
 }
