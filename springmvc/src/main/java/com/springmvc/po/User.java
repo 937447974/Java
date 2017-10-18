@@ -8,12 +8,22 @@ import javax.validation.constraints.Size;
  */
 public class User {
 
+    private Integer id;
+
     @NotEmpty(message = "{username.NotEmpty}")
     private String username;
 
     @NotEmpty(message = "{password.NotEmpty}")
     @Size(min = 6, max = 9, message = "{password.Size}")
     private String password;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
