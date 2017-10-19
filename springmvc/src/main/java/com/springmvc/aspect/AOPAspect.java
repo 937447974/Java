@@ -5,6 +5,8 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
+import java.lang.annotation.Target;
+
 /**
  * AOPAspect.java
  * <p>
@@ -15,7 +17,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class AOPAspect {
 
-    @Pointcut("execution(* com.springmvc.dao.*.* (..))")
+//    @Pointcut("execution(* com.springmvc.dao.*.* (..))")
+//    @Pointcut("within(com.springmvc.dao.*)")
+//    @Pointcut("execution(void addUser())")
+    @Pointcut("this(com.springmvc.dao.UserDao)")
     private void pointCut() {
     }
 
@@ -31,12 +36,6 @@ public class AOPAspect {
         return obj;
     }
 
-    // 异常通知
-    @AfterThrowing(value = "pointCut()", throwing = "e")
-    public void myAfterThrowing(JoinPoint joinPoint, Throwable e) {
-        System.out.println("异常通知：" + "出错了" + e.getMessage());
-    }
-
     // 前置通知
     @Before("pointCut()")
     public void myBefore(JoinPoint joinPoint) {
@@ -45,10 +44,16 @@ public class AOPAspect {
         System.out.println(",被织入增强处理的目标方法为：" + joinPoint.getSignature().getName());
     }
 
-    // 最终通知
+    // 异常通知
+    @AfterThrowing(value = "pointCut()", throwing = "e")
+    public void myAfterThrowing(JoinPoint joinPoint, Throwable e) {
+        System.out.println("异常通知：出错了" + e.getMessage());
+    }
+
+    // 后置 final 通知
     @After("pointCut()")
     public void myAfter() {
-        System.out.println("最终通知：模拟方法结束后的释放资源...");
+        System.out.println("后置 final 通知：模拟方法结束后的释放资源...");
     }
 
     // 后置通知
