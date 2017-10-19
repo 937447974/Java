@@ -53,11 +53,11 @@
                 <bean class="com.springmvc.conversion.DateConverter"/>
             </set>
         </property>
-        <!--<property name="formatters">-->
-            <!--<set>-->
-                <!--<bean class="com.springmvc.conversion.DateFormatter" />-->
-            <!--</set>-->
-        <!--</property>-->
+        <property name="formatters">
+            <set>
+                <bean class="com.springmvc.conversion.DateFormatter"/>
+            </set>
+        </property>
     </bean>
 
 </beans>
