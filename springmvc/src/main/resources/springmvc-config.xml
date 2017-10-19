@@ -24,6 +24,14 @@
     <!--配置静态资源的访问映射，此配置中的文件，将不被前端控制器拦截 -->
     <mvc:resources location="/js/" mapping="/js/**"/>
 
+    <!--拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.springmvc.interceptor.CustomInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <!-- 配置校验器 -->
     <!--国际化校验资源-->
     <bean id="hibernateValidationMessages" class="org.springframework.context.support.ResourceBundleMessageSource">
