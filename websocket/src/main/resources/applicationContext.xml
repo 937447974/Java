@@ -8,9 +8,7 @@
        http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!--dao包-->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.yjcocoa.core.dao"/>
-    </bean>
-    <context:component-scan base-package="com.websocket.common"/>
+
+    <!--<context:component-scan base-package="com.websocket.common"/>-->
 
 </beans>
