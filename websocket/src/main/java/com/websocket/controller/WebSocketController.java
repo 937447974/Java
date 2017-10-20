@@ -34,10 +34,11 @@ public class WebSocketController {
      */
     @MessageMapping("/hello") //"/hello"为WebSocketConfig类中registerStompEndpoints()方法配置的
     @SendTo("/topic/greetings")
-    public void greeting(@Header("atytopic") String topic, @Headers Map<String, Object> headers) {
+    public String greeting(@Header("atytopic") String topic, @Headers Map<String, Object> headers, String msg) {
         System.out.println("connected successfully....");
         System.out.println(topic);
         System.out.println(headers);
+        return "dodo";
     }
 
     /**
@@ -60,8 +61,8 @@ public class WebSocketController {
      */
     @RequestMapping(path = "/send", method = RequestMethod.GET)
     public Greeting send() {
-        simpMessagingTemplate.convertAndSendToUser("1", "/message", new Greeting("I am a msg from " +
-                "SubscribeMapping('/macro')."));
+        simpMessagingTemplate.convertAndSendToUser("1", "/message", new Greeting("I am a msg from SubscribeMapping" +
+                "('/macro')."));
         return new Greeting("I am a msg from SubscribeMapping('/macro').");
     }
 

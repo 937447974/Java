@@ -16,7 +16,7 @@
     </build>
 
     <properties>
-        <spring.version>4.3.11.RELEASE</spring.version>
+        <spring.version>5.0.0.RELEASE</spring.version>
         <!--指定Maven用什么编码来读取源码及文档-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--指定Maven用什么编码来呈现站点的HTML文件-->
