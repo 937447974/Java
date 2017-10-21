@@ -1,15 +1,13 @@
 package com.websocket.controller;
 
-import com.websocket.po.Greeting;
+import com.websocket.po.TextMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SendToUser;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -20,25 +18,22 @@ import java.util.Map;
  * Created by 阳君 on 2017/10/20.
  * Copyright © 2017年 websocket. All rights reserved.
  */
+@MessageMapping("/stomp")
 @RestController
 public class WebSocketController {
 
     @Autowired
     public SimpMessagingTemplate simpMessagingTemplate;
-    
-    /**
-     * 表示服务端可以接收客户端通过主题“/app/hello”发送过来的消息，客户端需要在主题"/topic/hello"上监听并接收服务端发回的消息
-     *
-     * @param topic
-     * @param headers
-     */
-    @MessageMapping("/hello") //"/hello"为WebSocketConfig类中registerStompEndpoints()方法配置的
-    @SendTo("/topic/greetings")
-    public String greeting(@Header("atytopic") String topic, @Headers Map<String, Object> headers, String msg) {
-        System.out.println("connected successfully....");
-        System.out.println(topic);
+
+    @MessageMapping("/sendBroadcast")
+    @SendTo("/topic/message") // 广播发送给 /topic/message 订阅客户端
+    public TextMessage sendBroadcast(@Headers Map<String, Object> headers, TextMessage
+            textMessage) {
         System.out.println(headers);
-        return "dodo";
+//        this.simpMessagingTemplate.convertAndSend("/topic/greetings", new TextMessage("阳君" + textMessage.getContent
+// ()));
+        this.simpMessagingTemplate.convertAndSendToUser("1", "/message", new TextMessage("定点信息"));
+        return new TextMessage("阳君:" + textMessage.getContent());
     }
 
     /**
@@ -47,23 +42,11 @@ public class WebSocketController {
      *
      * @return
      */
-    @MessageMapping("/message")
-    @SendToUser("/message")
-    public Greeting handleSubscribe() {
+    @MessageMapping("/sendToUser/{userID}")
+    @SendToUser("1/message")
+    public TextMessage sendToUser(TextMessage textMessage) {
         System.out.println("this is the @SubscribeMapping('/marco')");
-        return new Greeting("I am a msg from SubscribeMapping('/macro').");
-    }
-
-    /**
-     * 测试对指定用户发送消息方法
-     *
-     * @return
-     */
-    @RequestMapping(path = "/send", method = RequestMethod.GET)
-    public Greeting send() {
-        simpMessagingTemplate.convertAndSendToUser("1", "/message", new Greeting("I am a msg from SubscribeMapping" +
-                "('/macro')."));
-        return new Greeting("I am a msg from SubscribeMapping('/macro').");
+        return new TextMessage("I am a msg from SubscribeMapping('/macro').");
     }
 
 }

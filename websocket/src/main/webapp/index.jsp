@@ -6,8 +6,9 @@
     <script src="${pageContext.request.contextPath}/js/sockjs.js"></script>
     <script src="${pageContext.request.contextPath}/js/stomp.js"></script>
     <script type="text/javascript">
-        var stompClient = null;
-
+        $(document).ready(function () {
+            setConnected(false);
+        });
         function setConnected(connected) {
             $("#connect").prop("disabled", connected);
             $("#disconnect").prop("disabled", !connected);
@@ -19,38 +20,41 @@
             document.getElementById('response').innerHTML = '';
         }
 
+        var stompClient = null;
         //this line.
         function connect() {
             var userid = document.getElementById('userid').value;
-            var socket = new SockJS("/websocket");
+            var socket = new SockJS("/stomp");
             stompClient = Stomp.over(socket);
-            alert("333");
-            stompClient.connect({}, function (frame) {
-                alert(frame);
+            stompClient.connect({'Auth-Token': userid}, function (frame) {
+                alert(frame)
                 setConnected(true);
                 console.log('Connected: ' + frame);
+                showGreeting("连接成功");
                 // 广播
-                stompClient.subscribe('/topic/greetings', function (greeting) {
-                    alert(JSON.parse(greeting.body).content);
+                stompClient.subscribe('/topic', function (greeting) {
                     showGreeting(JSON.parse(greeting.body).content);
+                    greeting.ack();
                 });
                 // 一对一通信
                 stompClient.subscribe('/user/' + userid + '/message', function (greeting) {
                     alert(JSON.parse(greeting.body).content);
                     showGreeting(JSON.parse(greeting.body).content);
                 });
+            }, function(error) {
+                alert(error);
             });
         }
 
-        function sendName() {
-            var name = document.getElementById('name').value;
-
-            stompClient.send("/app/hello", {atytopic: "greetings"}, JSON.stringify({'name': name}));
+        function sendToUser() {
+            var name = document.getElementById('targetMsg').value;
+            stompClient.send("/app/stomp/sendToUser/1", {'type': 'text'}, JSON.stringify({ 'userID':'1','content': name}));
         }
+
         function sendBroadcast() {
-            alert($("#broadcast").val());
             var txt = document.getElementById('broadcast').value;
-            stompClient.send("/app/hello", {atytopic: "greetings"}, JSON.stringify({'msg': name}));
+            stompClient.send("/app/stomp/sendBroadcast", {'type': 'text'}, JSON.stringify({'content': txt}));
+//            stompClient.send("/sendBroadcast", {"type": "text"}, JSON.stringify({'content': txt}));
         }
 
         function disconnect() {
@@ -74,13 +78,20 @@
 <body>
 <div>
     <div>
-        <label>用户id?</label><input type="text" id="userid"/>
+        <label>登录</label><br/>
+        <input type="text" id="userid" placeholder="输入账号"/>
         <button id="connect" onclick="connect();">连接</button>
         <button id="disconnect" disabled="disabled" onclick="disconnect();">断开</button>
     </div>
     <div id="conversationDiv">
-        <label>广播</label><input type="text" id="broadcast"/><button onclick="sendBroadcast();">连接</button>
-
+        <label>广播</label><br/>
+        <input type="text" id="broadcast" placeholder="输入信息"/>
+        <button onclick="sendBroadcast();">发送</button>
+        <br/>
+        <label>一对一通信</label><<br/>
+        <input type="text" id="targetid" placeholder="对方账号"/><input type="text" id="targetMsg" placeholder="输入信息"/>
+        <button onclick="sendToUser();">发送</button>
+        <br/>
         <p id="response"></p>
     </div>
 </div>
