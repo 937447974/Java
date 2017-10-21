@@ -27,21 +27,21 @@
             var socket = new SockJS("/stomp");
             stompClient = Stomp.over(socket);
             stompClient.connect({'Auth-Token': userid}, function (frame) {
-                alert(frame)
                 setConnected(true);
                 console.log('Connected: ' + frame);
                 showGreeting("连接成功");
                 // 广播
                 stompClient.subscribe('/topic', function (greeting) {
+                    console.log('subscribe: ' + greeting);
                     showGreeting(JSON.parse(greeting.body).content);
-                    greeting.ack();
                 });
                 // 一对一通信
                 stompClient.subscribe('/user/' + userid + '/message', function (greeting) {
-                    alert(JSON.parse(greeting.body).content);
+                    console.log('subscribe: ' + greeting);
                     showGreeting(JSON.parse(greeting.body).content);
                 });
             }, function(error) {
+                console.log('connect error: ' + error);
                 alert(error);
             });
         }
@@ -52,9 +52,11 @@
         }
 
         function sendBroadcast() {
-            var txt = document.getElementById('broadcast').value;
-            stompClient.send("/app/stomp/sendBroadcast", {'type': 'text'}, JSON.stringify({'content': txt}));
-//            stompClient.send("/sendBroadcast", {"type": "text"}, JSON.stringify({'content': txt}));
+            if (stompClient.connected) {
+                var txt = document.getElementById('broadcast').value;
+                stompClient.send("/app/stomp/sendBroadcast", {'type': 'text'}, JSON.stringify({'content': txt}));
+            }
+//           stompClient.send("/sendBroadcast", {"type": "text"}, JSON.stringify({'content': txt}));
         }
 
         function disconnect() {
