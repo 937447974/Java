@@ -1,11 +1,8 @@
 package com.websocket.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.converter.MessageConverter;
-import org.springframework.messaging.handler.invocation.HandlerMethodArgumentResolver;
-import org.springframework.messaging.handler.invocation.HandlerMethodReturnValueHandler;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;
@@ -17,7 +14,7 @@ import java.util.List;
 
 /**
  * WebsocketConfig.java
- * <p>
+ * Websocket 配置
  * Created by 阳君 on 2017/10/20.
  * Copyright © 2017年 websocket. All rights reserved.
  */
@@ -32,7 +29,6 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/stomp") // stomp 连接点
                 .addInterceptors(new AuthHandshakeInterceptor()) // 拦截器
-//                .setHandshakeHandler()
                 .setAllowedOrigins("*")
                 .withSockJS();
     }
@@ -41,9 +37,9 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
     @Override
     public void configureWebSocketTransport(WebSocketTransportRegistration registration) {
         super.configureWebSocketTransport(registration);
-        registration.setSendTimeLimit(15 * 1000) // 超时时间
+        registration.setSendTimeLimit(15 * 1000)    // 超时时间
                 .setSendBufferSizeLimit(512 * 1024) // 缓存空间
-                .setMessageSizeLimit(128 * 1024); // 消息大小
+                .setMessageSizeLimit(128 * 1024);   // 消息大小
     }
 
     // 输入通道配置
@@ -51,9 +47,9 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
     public void configureClientInboundChannel(ChannelRegistration registration) {
         super.configureClientInboundChannel(registration);
         registration.interceptors(this.inboundChannelInterceptor);// 设置拦截器
-        //线程信息
-        registration.taskExecutor().corePoolSize(400) // 核心线程池
-                .maxPoolSize(800) // 最多线程池数
+        registration.taskExecutor()    // 线程信息
+                .corePoolSize(400)     // 核心线程池
+                .maxPoolSize(800)      // 最多线程池数
                 .keepAliveSeconds(60); // 超过核心线程数后，空闲线程超时60秒则杀死
     }
 
@@ -74,10 +70,8 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         super.configureMessageBroker(registry);
         registry.enableSimpleBroker("/topic", "/user"); // 推送消息前缀
-        registry.setApplicationDestinationPrefixes("/app") // 应用请求前缀
-                .setUserDestinationPrefix("/user/"); // 推送用户前缀
+        registry.setApplicationDestinationPrefixes("/app")                // 应用请求前缀
+                .setUserDestinationPrefix("/user/");                      // 推送用户前缀
     }
-
-
 
 }

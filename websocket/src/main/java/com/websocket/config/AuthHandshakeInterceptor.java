@@ -4,7 +4,6 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.lang.Nullable;
 import org.springframework.web.socket.WebSocketHandler;
-import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 import org.springframework.web.socket.server.support.OriginHandshakeInterceptor;
 
 import java.util.Map;
@@ -18,7 +17,8 @@ import java.util.Map;
 public class AuthHandshakeInterceptor extends OriginHandshakeInterceptor {
 
     @Override
-    public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
+    public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler
+            wsHandler, Map<String, Object> attributes) throws Exception {
         System.out.println("beforeHandshake");
         return super.beforeHandshake(request, response, wsHandler, attributes);
     }

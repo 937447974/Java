@@ -11,7 +11,7 @@ import org.springframework.lang.Nullable;
 public class TextMessage {
 
     @Nullable
-    private String userID; // 用户id
+    private String userId; // 用户id
     @Nullable
     private String content; // 内容
 
@@ -22,19 +22,13 @@ public class TextMessage {
         this.content = content;
     }
 
-    public String getUserID() {
-        return userID;
+    @Nullable
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
-
+    @Nullable
     public String getContent() {
         return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 }

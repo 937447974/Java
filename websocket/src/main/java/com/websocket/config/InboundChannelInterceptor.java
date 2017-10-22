@@ -1,13 +1,15 @@
 package com.websocket.config;
 
-import com.websocket.component.WebSocketPool;
+import com.websocket.service.WebSocketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.simp.stomp.StompCommand;
+import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptorAdapter;
+import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.stereotype.Component;
-import org.springframework.web.socket.WebSocketSession;
 
 /**
  * InboundChannelInterceptor.java
@@ -19,11 +21,20 @@ import org.springframework.web.socket.WebSocketSession;
 public class InboundChannelInterceptor extends ChannelInterceptorAdapter {
 
     @Autowired
-    private WebSocketPool webSocketPool;
+    private WebSocketService webSocketService;
 
     @Override
     public Message<?> preSend(Message<?> message, MessageChannel channel) {
         System.out.println("preSend:" + message.getHeaders());
+        StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
+        StompCommand stompCommand = accessor.getCommand();
+        if (StompCommand.CONNECT.equals(stompCommand)) {
+            String userId = accessor.getFirstNativeHeader("userId");
+            String simpSessionId = accessor.getHeader("simpSessionId").toString();
+            this.webSocketService.connect(simpSessionId, userId);
+        } else if (StompCommand.DISCONNECT.equals(stompCommand)) {
+            this.webSocketService.disconnect(accessor.getHeader("simpSessionId").toString());
+        }
         return super.preSend(message, channel);
     }
 
