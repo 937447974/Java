@@ -76,9 +76,8 @@
             } else {
                 $("#conversationDiv").hide();
             }
-            document.getElementById('response').innerHTML = '';
+            $("#response").html('');
         }
-
     </script>
 </head>
 <body>
