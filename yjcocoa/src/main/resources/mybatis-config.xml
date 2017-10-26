@@ -5,17 +5,17 @@
     <typeAliases>
         <package name="com.yjcocoa.core.po"/>
     </typeAliases>
-    <!--<environments default="mysql">-->
-        <!--<environment id="mysql">-->
-            <!--<transactionManager type="JDBC"/>-->
-            <!--<dataSource type="POOLED">-->
-                <!--<property name="driver" value="com.mysql.cj.jdbc.Driver"/>-->
-                <!--<property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSSL=false"/>-->
-                <!--<property name="username" value="root"/>-->
-                <!--<property name="password" value=""/>-->
-            <!--</dataSource>-->
-        <!--</environment>-->
-    <!--</environments>-->
+    <environments default="mysql">
+        <environment id="mysql">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSSL=false"/>
+                <property name="username" value="root"/>
+                <property name="password" value=""/>
+            </dataSource>
+        </environment>
+    </environments>
     <mappers>
         <mapper resource="com/yjcocoa/core/dao/BaseDictDao.xml"/>
         <mapper resource="com/yjcocoa/core/dao/CustomerDao.xml"/>
