@@ -5,7 +5,9 @@ import com.mybatis.po.User;
 import com.mybatis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -31,7 +33,33 @@ public class UserServiceImpl implements UserService {
         this.userMapper.insertUsers(users);
     }
 
-    public User findUserByCode(String code) {
-        return this.userMapper.findUserByCode(code);
+    @Transactional
+    public void deleteUser(String code) {
+        if (!StringUtils.isEmpty(code)) {
+            this.userMapper.deleteUser(code);
+        }
+    }
+
+    @Transactional
+    public void deleteUsers(List<String> codes) {
+        if (codes.size() >= 1) {
+            this.userMapper.deleteUsers(codes);
+        }
+    }
+
+    public void updateUser(User user) {
+        if (!StringUtils.isEmpty(user.getCode())) {
+            this.userMapper.updateUser(user);
+        }
+    }
+
+    public void updateUsers(List<User> users) {
+        if (users.size() >= 1) {
+            this.userMapper.updateUsers(users);
+        }
+    }
+
+    public User selectUser(User user){
+        return this.userMapper.selectUser(user);
     }
 }

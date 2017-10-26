@@ -1,6 +1,8 @@
 package com.mybatis.dao;
 
 import com.mybatis.po.User;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,12 +14,21 @@ import java.util.List;
  */
 public interface UserMapper {
 
+    @Transactional(propagation = Propagation.MANDATORY)
     void insertUser(User user);
-
+    @Transactional(propagation = Propagation.MANDATORY)
     void insertUsers(List<User> users);
 
-    void delleteUser(User user);
+    @Transactional(propagation = Propagation.MANDATORY)
+    void deleteUser(String code);
+    @Transactional(propagation = Propagation.MANDATORY)
+    void deleteUsers(List<String> codes);
 
-    User findUserByCode(String code);
+    @Transactional(propagation = Propagation.MANDATORY)
+    void updateUser(User user);
+    @Transactional(propagation = Propagation.MANDATORY)
+    void updateUsers(List<User> users);
+
+    User selectUser(User user);
 
 }

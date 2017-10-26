@@ -13,9 +13,14 @@ import java.util.List;
 public interface UserService {
 
     void insertUser(User user);
-
     void insertUsers(List<User> users);
 
-    User findUserByCode(String code);
+    void deleteUser(String code);
+    void deleteUsers(List<String> codes);
+
+    void updateUser(User user);
+    void updateUsers(List<User> users);
+
+    User selectUser(User user);
 
 }
