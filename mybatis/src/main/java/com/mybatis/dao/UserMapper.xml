@@ -51,6 +51,14 @@
         </foreach>
     </update>
 
+    <!--查-->
+    <select id="selectUsers" parameterType="User" resultType="User">
+        SELECT *
+        FROM user
+        <include refid="whereUser"/>
+        ORDER BY name
+    </select>
+    <!-- sql 片段-->
     <sql id="whereUser">
         <where>
             <if test="code != null and code != ''">
@@ -61,12 +69,5 @@
             </if>
         </where>
     </sql>
-
-    <!--查-->
-    <select id="selectUser" parameterType="User" resultType="User">
-        SELECT *
-        FROM user
-        <include refid="whereUser"/>
-    </select>
 
 </mapper>

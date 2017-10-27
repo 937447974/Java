@@ -23,13 +23,13 @@ public class UserServiceTest {
 
     @Test
     public void transactionTest() {
+        this.userService = this.getAppContext().getBean(UserService.class);
         DataSourceTransactionManager txManager = this.getAppContext().getBean(DataSourceTransactionManager.class);
         DefaultTransactionDefinition transactionDefinition = new DefaultTransactionDefinition();
         TransactionStatus status = txManager.getTransaction(transactionDefinition); // 获得事务状态
         try {
-            this.userService = this.getAppContext().getBean(UserService.class);
-            this.userTest();
-//            this.usersTest();
+//            this.userTest();
+            this.usersTest();
             txManager.commit(status);
         } catch (Exception e) {
             System.out.println(e);
@@ -53,10 +53,12 @@ public class UserServiceTest {
 
     private void usersTest() {
         List<User> users = new ArrayList<User>();
-        for (int i = 1; i < 4; i++) {
+        for (int i = 1; i < 20; i++) {
             users.add(new User("" + i, "阳君-" + i));
         }
         userService.insertUsers(users);
+
+        userService.selectUsers(null, 1, 10);
 
         int i = 0;
         List<String> codes = new ArrayList<String>();

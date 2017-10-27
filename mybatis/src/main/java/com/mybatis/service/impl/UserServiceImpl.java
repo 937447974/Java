@@ -1,11 +1,12 @@
 package com.mybatis.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.mybatis.dao.UserMapper;
 import com.mybatis.po.User;
 import com.mybatis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
@@ -59,7 +60,16 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public User selectUser(User user){
-        return this.userMapper.selectUser(user);
+    public User selectUser(User user) {
+        List<User> list = this.userMapper.selectUsers(user);
+        if (list.size() >= 1) {
+            return list.get(0);
+        }
+        return null;
     }
+
+    public Page<User> selectUsers(User user, int pageNum, int pageSize) {
+        return PageHelper.startPage(pageNum, pageSize).doSelectPage(() -> userMapper.selectUsers(user));
+    }
+
 }

@@ -29,6 +29,6 @@ public interface UserMapper {
     @Transactional(propagation = Propagation.MANDATORY)
     void updateUsers(List<User> users);
 
-    User selectUser(User user);
+    List<User> selectUsers(User user);
 
 }
