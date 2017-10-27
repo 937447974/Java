@@ -23,6 +23,7 @@ CREATE TABLE user_language (
   id            INT(32) PRIMARY KEY AUTO_INCREMENT,
   user_code     VARCHAR(32) NOT NULL,
   language_code VARCHAR(32) NOT NULL,
+  CONSTRAINT UNIQUE (user_code, language_code),
   CONSTRAINT FOREIGN KEY (user_code) REFERENCES user (code)
     ON DELETE CASCADE,
   CONSTRAINT FOREIGN KEY (language_code) REFERENCES language (code)
@@ -38,4 +39,6 @@ DESCRIBE user_language;
 INSERT language (code, name)
 VALUES ('1', 'Java'), ('2', 'iOS'), ('3', 'JavasScript'), ('4', 'SQL');
 INSERT user (code, name, language_code)
-  VALUE ('937447974', '阳君', '1')
+  VALUE ('937447974', '阳君', '1');
+INSERT user_language (user_code, language_code)
+VALUES ('937447974', '1'), ('937447974', '2');
