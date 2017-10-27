@@ -36,7 +36,11 @@
     <!--改-->
     <update id="updateUser" parameterType="User">
         UPDATE user
-        SET name = #{name}
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name}
+            </if>
+        </set>
         WHERE code = #{code}
     </update>
     <update id="updateUsers">
