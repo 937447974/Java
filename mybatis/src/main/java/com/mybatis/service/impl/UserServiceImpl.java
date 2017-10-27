@@ -68,6 +68,15 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
+    public User selectUserAndLanguage(User user) {
+        List<User> list = this.userMapper.selectUserAndLanguage(user);
+        if (list.size() >= 1) {
+            return list.get(0);
+        }
+        return null;
+    }
+
     public Page<User> selectUsers(User user, int pageNum, int pageSize) {
         return PageHelper.startPage(pageNum, pageSize).doSelectPage(() -> userMapper.selectUsers(user));
     }

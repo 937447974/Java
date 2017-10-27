@@ -26,6 +26,7 @@ public interface UserService {
     void updateUsers(List<User> users);
 
     User selectUser(User user);
+    User selectUserAndLanguage(User user);
 
     Page<User> selectUsers(User user, int pageNum, int pageSize);
 

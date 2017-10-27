@@ -58,20 +58,69 @@
     <!--查-->
     <select id="selectUsers" parameterType="User" resultType="User">
         SELECT *
-        FROM user
-        <include refid="whereUser"/>
+        FROM user u
+        <where>
+            <include refid="whereUser"/>
+        </where>
         ORDER BY name
     </select>
+    <select id="selectUserAndLanguage1" parameterType="User" resultMap="userAndLanguage">
+        SELECT
+        u.id, u.code, u.name,
+        l.code language_code, l.name language_name,
+        ul.l_code languages_code, ul.l_name languages_name
+        FROM user u, language l, (<include refid="userLanguages"/>) ul
+        <where>
+            u.language_code = l.code
+            AND u.code = ul.u_code
+            <include refid="whereUser"/>
+        </where>
+        ORDER BY u.name
+    </select>
+    <select id="selectUserAndLanguage" parameterType="User" resultMap="userAndLanguage">
+        SELECT
+        u.id, u.code, u.name
+        ul.l_code languages_code, ul.l_name languages_name
+        FROM user u, (<include refid="userLanguages"/>) ul
+        <where>
+            u.code = ul.u_code
+            <include refid="whereUser"/>
+        </where>
+        ORDER BY u.name
+    </select>
+    <!-- 结果映射 -->
+    <resultMap id="userAndLanguage" type="User">
+        <id property="id" column="id"/>
+        <result property="code" column="code"/>
+        <result property="name" column="name"/>
+        <!-- 一对一 -->
+        <association property="language" javaType="Language">
+            <result property="code" column="language_code"/>
+            <result property="name" column="language_name"/>
+        </association>
+        <!-- 一对多/多对多 -->
+        <collection property="languages" javaType="Language">
+            <result property="code" column="languages_code"/>
+            <result property="name" column="languages_name"/>
+        </collection>
+    </resultMap>
     <!-- sql 片段-->
     <sql id="whereUser">
-        <where>
-            <if test="code != null and code != ''">
-                code = #{code}
-            </if>
-            <if test="name != null and name != ''">
-                AND name LIKE CONCAT('%',#{name},'%')
-            </if>
-        </where>
+        <if test="code != null and code != ''">
+            AND u.code = #{code}
+        </if>
+        <if test="name != null and name != ''">
+            AND u.name LIKE CONCAT('%',#{name},'%')
+        </if>
+    </sql>
+    <sql id="userLanguages">
+        SELECT
+            u.code u_code,
+            l.code l_code,
+            l.name l_name
+        FROM user u, language l, user_language ul
+        WHERE ul.user_code = u.code
+              AND ul.language_code = l.code
     </sql>
 
 </mapper>

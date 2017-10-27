@@ -24,12 +24,14 @@ public class UserServiceTest {
     @Test
     public void transactionTest() {
         this.userService = this.getAppContext().getBean(UserService.class);
+        this.selectUserAndLanguageTest();
         DataSourceTransactionManager txManager = this.getAppContext().getBean(DataSourceTransactionManager.class);
         DefaultTransactionDefinition transactionDefinition = new DefaultTransactionDefinition();
         TransactionStatus status = txManager.getTransaction(transactionDefinition); // 获得事务状态
         try {
-            this.userTest();
+//            this.userTest();
 //            this.usersTest();
+            this.selectUserAndLanguageTest();
             txManager.commit(status);
         } catch (Exception e) {
             System.out.println(e);
@@ -37,8 +39,15 @@ public class UserServiceTest {
         }
     }
 
+
+    private void selectUserAndLanguageTest() {
+        User user = new User("937447974");
+        user = this.userService.selectUserAndLanguage(user);
+        System.out.println(user);
+    }
+
     private void userTest() {
-        User user = new User("937447974", "阳君");
+        User user = new User("937447974-1", "阳君");
         userService.insertUser(user);
 
         user.setName("yangjun");

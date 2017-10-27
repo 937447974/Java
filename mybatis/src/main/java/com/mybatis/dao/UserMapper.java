@@ -30,5 +30,6 @@ public interface UserMapper {
     void updateUsers(List<User> users);
 
     List<User> selectUsers(User user);
+    List<User> selectUserAndLanguage(User user);
 
 }
