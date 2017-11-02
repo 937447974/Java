@@ -27,6 +27,8 @@
         <spring.version>5.0.1.RELEASE</spring.version>
         <mybatis.version>3.4.5</mybatis.version>
         <mysql.version>6.0.6</mysql.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <!--指定Maven用什么编码来读取源码及文档-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--指定Maven用什么编码来呈现站点的HTML文件-->

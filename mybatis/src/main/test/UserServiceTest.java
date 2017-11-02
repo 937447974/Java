@@ -28,8 +28,8 @@ public class UserServiceTest {
         DefaultTransactionDefinition transactionDefinition = new DefaultTransactionDefinition();
         TransactionStatus status = txManager.getTransaction(transactionDefinition); // 获得事务状态
         try {
-            this.userTest();
-            this.usersTest();
+//            this.userTest();
+//            this.usersTest();
             this.selectUserAndLanguageTest();
             txManager.commit(status);
         } catch (Exception e) {
