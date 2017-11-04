@@ -95,11 +95,13 @@
     </resultMap>
     <!-- sql 片段-->
     <sql id="whereUserSql">
+        <!-- 上下文绑定 -->
+        <bind name="likeName" value="'%' + name + '%'"/>
         <if test="code != null and code != ''">
             AND u.code = #{code}
         </if>
         <if test="name != null and name != ''">
-            AND u.name LIKE CONCAT('%',#{name},'%')
+            AND u.name LIKE #{likeName}
         </if>
     </sql>
     <sql id="userLanguagesSql">

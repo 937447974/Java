@@ -41,6 +41,7 @@ public class UserServiceTest {
 
     private void selectUserAndLanguageTest() {
         User user = new User("937447974");
+        user.setName("阳");
         user = this.userService.selectUserAndLanguage(user);
         System.out.println(user);
     }
