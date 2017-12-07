@@ -1,5 +1,6 @@
 package com.yjcocoa.oom;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +15,14 @@ import java.util.List;
  */
 public class RuntimeConstantPoolOOM {
 
-    public static void main(String[] args) {
+
+
+    public static void main(String[] args) throws Exception {
         List list = new ArrayList();
         int i = 0;
         while (true) {
+            Thread.sleep(1);
+            list = (List) Class.forName("java.util.ArrayList").getDeclaredConstructor().newInstance();
             list.add(String.valueOf(i++).intern());
         }
     }
@@ -25,5 +30,5 @@ public class RuntimeConstantPoolOOM {
 
 /*
 运行时常量池导致的内存溢出异常
-java -XX:PermSize=10M -XX:MaxPermSize=10M com.yjcocoa.oom.RuntimeConstantPoolOOM
+java -XX:MetaspaceSize=10M -XX:MaxMetaspaceSize=10M com.yjcocoa.oom.RuntimeConstantPoolOOM
  */
